@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace xGame.Domain.Entities
-{
+{ 
     public class Game
     {
         public Guid Id { get; set; }
@@ -10,7 +10,6 @@ namespace xGame.Domain.Entities
         public string Producer { get; set; }
         public string Distributor { get; set; }
         public string Genre { get; set; }
-
         public string Site { get; set; }
-    }
+    } 
 }
