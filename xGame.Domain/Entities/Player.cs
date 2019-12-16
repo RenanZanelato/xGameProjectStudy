@@ -1,30 +1,38 @@
-﻿using System;
+﻿using prmToolkit.NotificationPattern;
+using System;
 using xGame.Domain.Enum;
 using xGame.Domain.ValueObjects;
 
 namespace xGame.Domain.Entities
 {
-    public class Player
+    public class Player : Notifiable
     {
-        public Player(string password, Email email)
+        public Guid Id { get; private set; }
+        public Name Name { get; private set; }
+        public string Password { get; private set; }
+        public Email Email { get; private set; }
+        public EnumStatusPlayer Status { get; private set; }
+        public Player(Email email, string password)
         {
-            Password = password;
             Email = email;
+            Password = password;
 
-            if (string.IsNullOrEmpty(request.Email))
-            {
-                throw new Exception("Email is required");
-            }
-            if (string.IsNullOrEmpty(request.Password))
-            {
-                throw new Exception("Password is required");
-            }
+            new AddNotifications<Player>(this)
+                .IfNullOrInvalidLength(x => x.Password, 6, 32, "Min Lenght 6 and Max Lenght 32")
+                ;
+
         }
+        public Player(Name name,Email email, string password)
+        {
+            Name = name;
+            Email = email;
+            Password = password;
 
-        public Guid Id { get; set; }
-        public Name Name { get; set; }
-        public string Password { get; set; }
-        public Email Email { get; set; }
-        public EnumStatusPlayer Status { get; set; } 
+            new AddNotifications<Player>(this)
+                .IfNullOrInvalidLength(x => x.Password, 6, 32, "Min Lenght 6 and Max Lenght 32")
+                ;
+            AddNotifications(name, email);
+
+        }
     }
 }

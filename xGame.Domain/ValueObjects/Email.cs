@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using prmToolkit.NotificationPattern;
+using System;
 
 namespace xGame.Domain.ValueObjects
 {
-    public class Email
+    public class Email : Notifiable
     {
-        public string Endereco { get; set; }
+        public string Endereco { get; private set; }
+
+        public Email(string endereco) 
+        {
+            Endereco = endereco;
+            new AddNotifications<Email>(this).IfNotEmail(x => x.Endereco, "Email is required");
+        }
     }
 }
