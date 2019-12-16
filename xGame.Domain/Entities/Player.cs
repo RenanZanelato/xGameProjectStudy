@@ -1,6 +1,7 @@
 ﻿using prmToolkit.NotificationPattern;
 using System;
 using xGame.Domain.Enum;
+using xGame.Domain.Extensions;
 using xGame.Domain.ValueObjects;
 
 namespace xGame.Domain.Entities
@@ -32,6 +33,9 @@ namespace xGame.Domain.Entities
                 .IfNullOrInvalidLength(x => x.Password, 6, 32, "Min Lenght 6 and Max Lenght 32")
                 ;
             AddNotifications(name, email);
+            Password = Password.ConverTToMD5();
+            Status = Enum.EnumStatusPlayer.Active;
+
 
         }
     }
