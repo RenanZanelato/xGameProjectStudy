@@ -11,6 +11,11 @@ namespace xGame.Domain.Services
     {
         private readonly IRepositoryPlayer _repositoryPlayer;
 
+        public ServicePlayer(IRepositoryPlayer repositoryPlayer)
+        {
+            _repositoryPlayer = repositoryPlayer;
+        }
+
         
         public AuthPlayerResponse AuthPlayer(AuthPlayerRequest request)
         {
@@ -28,16 +33,27 @@ namespace xGame.Domain.Services
                 return null;
             }
             
-            return _repositoryPlayer.AuthPlayer(player.Email.Endereco,player.Password);
+            player =_repositoryPlayer.AuthPlayer(player.Email.Endereco,player.Password);
+
+            return new AuthPlayerResponse
+            {
+                FirstName = player.Name.FirstName,
+                Email = player.Email.Endereco,
+                Status =(int)player.Status
+            };
 
         }
 
         public AddingPlayerResponse AddingPlayer(AddingPlayerRequest request)
         {
             Email email = new Email(request.Email);
-            Name name = new Name(request.Name, request.Name);
-            Player player = new Player(name,email, request.Password);
 
+            Name name = new Name(request.FirstName, request.LastName);
+            Player player = new Player(name,email, request.Password);
+            if (player.IsInvalid())
+            {
+                return null;
+            }
             Guid idPlayer = _repositoryPlayer.AddingPlayer(player);
             return new AddingPlayerResponse() { Id = idPlayer, Message = "Operacao Realizada com Sucesso" };
         }

@@ -8,8 +8,4 @@
     <PackageReference Include="prmToolkit.NotificationPattern" Version="1.1.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-
 </Project>

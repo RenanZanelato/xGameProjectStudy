@@ -23,6 +23,14 @@ namespace xGame.ConsoleApp
             Console.WriteLine(request.Email);
             Console.WriteLine(request.Password);
 
+            AddingPlayerRequest request2 = new AddingPlayerRequest();
+            request2.Email = request.Email;
+            request2.Password = request.Password;
+            request2.FirstName = "Renan";
+            request2.LastName = "Zanelato";
+
+            service.AddingPlayer(request2);
+
             service.AuthPlayer(request);
 
             Console.WriteLine("isValid ->" + service.IsValid() );

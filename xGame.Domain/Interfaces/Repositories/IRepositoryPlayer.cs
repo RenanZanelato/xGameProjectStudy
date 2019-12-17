@@ -6,8 +6,8 @@ namespace xGame.Domain.Interfaces.Repositories
 {
     public interface IRepositoryPlayer
     {
-        AuthPlayerResponse AuthPlayer(string email,string password);
+        Player AuthPlayer(string email,string password);
 
-        Guid AddingPlayer(Player player);
+        Player AddingPlayer(Player player);
     }
 }

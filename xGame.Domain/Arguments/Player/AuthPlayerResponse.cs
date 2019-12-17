@@ -4,7 +4,9 @@ using xGame.Domain.ValueObjects;
 namespace xGame.Domain.Arguments.Player
 {
     public class AuthPlayerResponse : IResponse
-    {   
-        public Name Name { get; set; }
+    {
+        public string FirstName { get; set; }
+        public string Email { get; set; }
+        public int Status { get; set; }
     }
 }

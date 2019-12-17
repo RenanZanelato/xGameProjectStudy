@@ -28,13 +28,18 @@ namespace xGame.Domain.Entities
             Name = name;
             Email = email;
             Password = password;
+            Id = Guid.NewGuid();
+            Status = Enum.EnumStatusPlayer.InProgress;
 
             new AddNotifications<Player>(this)
                 .IfNullOrInvalidLength(x => x.Password, 6, 32, "Min Lenght 6 and Max Lenght 32")
                 ;
             AddNotifications(name, email);
-            Password = Password.ConverTToMD5();
-            Status = Enum.EnumStatusPlayer.Active;
+            if (IsValid()) 
+            {
+                Password = Password.ConverTToMD5();
+            }
+            
 
 
         }
