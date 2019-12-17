@@ -34,14 +34,28 @@ namespace xGame.Domain.Entities
             new AddNotifications<Player>(this)
                 .IfNullOrInvalidLength(x => x.Password, 6, 32, "Min Lenght 6 and Max Lenght 32")
                 ;
+
             AddNotifications(name, email);
             if (IsValid()) 
             {
                 Password = Password.ConverTToMD5();
             }
+        }
+        public void AlterPlayer(Name name, Email email, EnumStatusPlayer status = Enum.EnumStatusPlayer.Active)
+        {
+            Name = name;
+            Email = email;
             
 
+            new AddNotifications<Player>(this)
+                .IfFalse(Status == EnumStatusPlayer.Active,"Só é possivel alterar jogador se ele estiver ativo")
+                ;
 
+            AddNotifications(name, email);
+            if (IsValid())
+            {
+                Status = status;
+            }
         }
     }
 }

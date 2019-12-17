@@ -1,5 +1,7 @@
 ﻿using prmToolkit.NotificationPattern;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using xGame.Domain.Arguments.Player;
 using xGame.Domain.Entities;
 using xGame.Domain.Interfaces.Repositories;
@@ -28,19 +30,13 @@ namespace xGame.Domain.Services
             Player player = new Player(email, request.Password);
 
             AddNotifications(player, email);
+
             if (player.IsInvalid())
             {
                 return null;
             }
-            
-            player =_repositoryPlayer.AuthPlayer(player.Email.Endereco,player.Password);
-
-            return new AuthPlayerResponse
-            {
-                FirstName = player.Name.FirstName,
-                Email = player.Email.Endereco,
-                Status =(int)player.Status
-            };
+                        
+            return (AuthPlayerResponse) _repositoryPlayer.AuthPlayer(player.Email.Endereco, player.Password);
 
         }
 
@@ -54,8 +50,39 @@ namespace xGame.Domain.Services
             {
                 return null;
             }
-            Guid idPlayer = _repositoryPlayer.AddingPlayer(player);
-            return new AddingPlayerResponse() { Id = idPlayer, Message = "Operacao Realizada com Sucesso" };
+            return (AddingPlayerResponse) _repositoryPlayer.AddingPlayer(player) ;
+        }
+
+        public PlayerResponse AlterPlayer(AlterPlayerRequest request)
+        {
+            if (request == null)
+            {
+                AddNotification("AuthPlayerRequest", "AuthPlayerRequest is required");
+            }
+            Player player = _repositoryPlayer.GetPlayerToId(request.Id);
+
+            if (player == null) 
+            {
+                AddNotification("Player", "Player don't exist");
+                return null;
+            }
+            Email email = new Email(request.Email);
+            Name name = new Name(request.FirstName, request.LastName);
+
+            if (IsInvalid()) 
+            {
+                return null;
+            }
+            player.AlterPlayer(name, email,player.Status);
+            _repositoryPlayer.AlterPlayer(player);
+
+            return (PlayerResponse)player; 
+
+        }
+
+        public IEnumerable<PlayerResponse> ListPlayers()
+        {
+            return _repositoryPlayer.ListPlayers().ToList().Select(player => (PlayerResponse)player).ToList();
         }
     }
 }

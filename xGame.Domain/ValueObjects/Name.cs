@@ -19,5 +19,10 @@ namespace xGame.Domain.ValueObjects
                 .IfNullOrInvalidLength(x => LastName,0,25, "lastName invalid");
 
         }
+
+        public override string ToString()
+        {
+            return this.FirstName + " " + this.LastName;
+        }
     }
 }

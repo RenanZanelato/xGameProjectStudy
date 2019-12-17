@@ -11,29 +11,29 @@ namespace xGame.ConsoleApp
         static void Main(string[] args)
         {
             Console.WriteLine("Starting");
-            ServicePlayer service = new ServicePlayer();
+            xMessages service = new xMessages();
             Console.WriteLine("Creating Service Player");
-            AuthPlayerRequest request = new AuthPlayerRequest();
+            AuthPlayerRequest authPlayerRequest = new AuthPlayerRequest();
             Console.WriteLine("Creating Auth Player");
 
-            request.Email = "renan.zanelato@gmail.com";
-            request.Password = "teste123";
+            authPlayerRequest.Email = "renan.zanelato@gmail.com";
+            authPlayerRequest.Password = "teste123";
 
-            Console.WriteLine(request);
-            Console.WriteLine(request.Email);
-            Console.WriteLine(request.Password);
+            Console.WriteLine(authPlayerRequest);
+            Console.WriteLine(authPlayerRequest.Email);
+            Console.WriteLine(authPlayerRequest.Password);
 
-            AddingPlayerRequest request2 = new AddingPlayerRequest();
-            request2.Email = request.Email;
-            request2.Password = request.Password;
-            request2.FirstName = "Renan";
-            request2.LastName = "Zanelato";
+            AddingPlayerRequest addingPlayerRequest = new AddingPlayerRequest();
+            addingPlayerRequest.Email = authPlayerRequest.Email;
+            addingPlayerRequest.Password = authPlayerRequest.Password;
+            addingPlayerRequest.FirstName = "Renan";
+            addingPlayerRequest.LastName = "Zanelato";
 
-            service.AddingPlayer(request2);
+            AuthPlayerResponse authPlayerResponse = service.AuthPlayer(authPlayerRequest);
 
-            service.AuthPlayer(request);
+            AddingPlayerResponse addingPlayerResponse = service.AddingPlayer(addingPlayerRequest);
 
-            Console.WriteLine("isValid ->" + service.IsValid() );
+            Console.WriteLine("isValid ->" + service.IsValid());
 
             if (!service.IsValid())
             {
