@@ -13,6 +13,10 @@ namespace xGame.Domain.Services
     {
         private readonly IRepositoryPlayer _repositoryPlayer;
 
+        public ServicePlayer()
+        {
+        }
+
         public ServicePlayer(IRepositoryPlayer repositoryPlayer)
         {
             _repositoryPlayer = repositoryPlayer;

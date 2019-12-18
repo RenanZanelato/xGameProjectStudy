@@ -11,7 +11,7 @@ namespace xGame.ConsoleApp
         static void Main(string[] args)
         {
             Console.WriteLine("Starting");
-            xMessages service = new xMessages();
+            ServicePlayer service = new ServicePlayer();
             Console.WriteLine("Creating Service Player");
             AuthPlayerRequest authPlayerRequest = new AuthPlayerRequest();
             Console.WriteLine("Creating Auth Player");
