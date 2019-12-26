@@ -10,6 +10,7 @@ namespace xGame.ConsoleApp
     {
         static void Main(string[] args)
         {
+            /*
             Console.WriteLine("Starting");
             ServicePlayer service = new ServicePlayer();
             Console.WriteLine("Creating Service Player");
@@ -44,6 +45,7 @@ namespace xGame.ConsoleApp
             }
 
             Console.ReadKey();
+            */
         }
     }
 }

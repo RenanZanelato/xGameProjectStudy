@@ -88,5 +88,6 @@ namespace xGame.Domain.Services
         {
             return _repositoryPlayer.ListPlayers().ToList().Select(player => (PlayerResponse)player).ToList();
         }
+
     }
 }

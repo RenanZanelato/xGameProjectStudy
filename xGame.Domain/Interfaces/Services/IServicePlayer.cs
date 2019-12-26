@@ -11,7 +11,7 @@ namespace xGame.Domain.Interfaces.Services
 
         AddingPlayerResponse AddingPlayer(AddingPlayerRequest request);
 
-        AlterPlayerResponse AlterPlayer(AlterPlayerRequest request);
+        PlayerResponse AlterPlayer(AlterPlayerRequest request);
 
         IEnumerable<PlayerResponse> ListPlayers();
     }
