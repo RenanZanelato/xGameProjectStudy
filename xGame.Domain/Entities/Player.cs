@@ -1,14 +1,14 @@
 ﻿using prmToolkit.NotificationPattern;
 using System;
+using xGame.Domain.Entities.Base;
 using xGame.Domain.Enum;
 using xGame.Domain.Extensions;
 using xGame.Domain.ValueObjects;
 
 namespace xGame.Domain.Entities
 {
-    public class Player : Notifiable
+    public class Player : EntityBase
     {
-        public Guid Id { get; private set; }
         public Name Name { get; private set; }
         public string Password { get; private set; }
         public Email Email { get; private set; }
@@ -28,7 +28,6 @@ namespace xGame.Domain.Entities
             Name = name;
             Email = email;
             Password = password;
-            Id = Guid.NewGuid();
             Status = Enum.EnumStatusPlayer.InProgress;
 
             new AddNotifications<Player>(this)

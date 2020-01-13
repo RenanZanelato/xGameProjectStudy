@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using xGame.Domain.Arguments.Base;
 using xGame.Domain.Arguments.Player;
 using xGame.Domain.Entities;
 using xGame.Domain.Interfaces.Repositories;
@@ -40,7 +41,7 @@ namespace xGame.Domain.Services
                 return null;
             }
                         
-            return (AuthPlayerResponse) _repositoryPlayer.AuthPlayer(player.Email.Endereco, player.Password);
+            return (AuthPlayerResponse) _repositoryPlayer.GetTo(x => x.Email.Endereco == player.Email.Endereco, x => x.Password == player.Password);
 
         }
 
@@ -54,7 +55,7 @@ namespace xGame.Domain.Services
             {
                 return null;
             }
-            return (AddingPlayerResponse) _repositoryPlayer.AddingPlayer(player) ;
+            return (AddingPlayerResponse) _repositoryPlayer.Adding(player) ;
         }
 
         public PlayerResponse AlterPlayer(AlterPlayerRequest request)
@@ -63,7 +64,7 @@ namespace xGame.Domain.Services
             {
                 AddNotification("AuthPlayerRequest", "AuthPlayerRequest is required");
             }
-            Player player = _repositoryPlayer.GetPlayerToId(request.Id);
+            Player player = _repositoryPlayer.GetToId(request.Id);
 
             if (player == null) 
             {
@@ -78,7 +79,7 @@ namespace xGame.Domain.Services
                 return null;
             }
             player.AlterPlayer(name, email,player.Status);
-            _repositoryPlayer.AlterPlayer(player);
+            _repositoryPlayer.Update(player);
 
             return (PlayerResponse)player; 
 
@@ -86,7 +87,20 @@ namespace xGame.Domain.Services
 
         public IEnumerable<PlayerResponse> ListPlayers()
         {
-            return _repositoryPlayer.ListPlayers().ToList().Select(player => (PlayerResponse)player).ToList();
+            //return _repositoryPlayer.ListPlayers().ToList().Select(player => (PlayerResponse)player).ToList();
+            return _repositoryPlayer.List().Select(player => (PlayerResponse)player).ToList();
+        }
+
+        public ResponseBase RemovePlayer(Guid id)
+        {
+            Player player = _repositoryPlayer.GetToId(id);
+            if(player == null)
+            {
+                AddNotification("Id","Player don't exist");
+                return null;
+            }
+            _repositoryPlayer.Remove(player); ;
+            return new ResponseBase();
         }
 
     }

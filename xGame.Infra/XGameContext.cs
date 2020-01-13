@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using xGame.Domain.Entities;
 
@@ -10,7 +9,7 @@ namespace xGame.Infra.Persistence
         public IDbSet<Player> Players { get; set; }
 
         public IDbSet<Type> Types { get; set; }
-        public XGameContext() : base("Server=.\\sqlexpress;Database=xGame;Trusted_Connection=True;")
+        public XGameContext() : base("Server=(localdb)\\mssqllocaldb;Database=xGame;Integrated Security=true;MultipleActiveResultSets=true")
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;
@@ -28,10 +27,7 @@ namespace xGame.Infra.Persistence
             modelBuilder.Configurations.AddFromAssembly(typeof(XGameContext).Assembly);
 
             base.OnModelCreating(modelBuilder);
-
-
         }
-
-
     }
 }
+
