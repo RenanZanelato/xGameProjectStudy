@@ -203,6 +203,7 @@
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Interfaces\Arguments\IResponse.cs" />
     <Compile Include="Interfaces\Arguments\IRequest.cs" />
+    <Compile Include="Interfaces\Services\Base\IServiceBase.cs" />
     <Compile Include="Interfaces\Repositories\Base\IRepositoryBase.cs" />
     <Compile Include="Interfaces\Repositories\IRepositoryPlayer.cs" />
     <Compile Include="Interfaces\Services\IServicePlayer.cs" />

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using xGame.Domain.Arguments.Base;
 using xGame.Domain.Arguments.Player;
-using xGame.Domain.Entities;
+using xGame.Domain.Interfaces.Services.Base;
 
 namespace xGame.Domain.Interfaces.Services
 {
-    public interface IServicePlayer
+    public interface IServicePlayer : IServiceBase
     {
         AuthPlayerResponse AuthPlayer(AuthPlayerRequest request);
 
